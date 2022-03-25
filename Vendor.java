@@ -14,12 +14,15 @@ public class Vendor {
         myVendor.displayVendor();
     }
 
+    /*
+    Prints a visual representation of vending machine products & prices to stdout.
+    */
     public void displayVendor(){
         System.out.println("________________________________");
         System.out.println("|" + foods[0][0] + "| |" + foods[0][1] + "| |" + foods[0][2] + "| |" + foods[0][3] + "|");
-        System.out.println("1.20 3.60 2.00");
+        System.out.println("1.20 3.60 2.00 3.20 4.50");
        
-         
+        
        
     }
     public static void MagicRange(){
