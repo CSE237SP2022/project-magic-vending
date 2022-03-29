@@ -1,15 +1,8 @@
 package src.test;
 
 import java.util.Scanner;
-public class Vendor {
-    public static void main(String[] args){
-        int number = magicNumber();
-        int rangeHigh = number+2;
-        int rangeLow= number-2;
-        System.out.print(rangeLow + "-" + rangeHigh);
-        int bBucks= BearBucksInput();
-        System.out.print(bBucks);
-   
+public class Vendor {  
+
     private String[][] foods;
     private Double[][] prices;
     
@@ -21,6 +14,13 @@ public class Vendor {
     }
 
     public static void main(String[] args){
+        int number = magicNumber();
+        int rangeHigh = number+2;
+        int rangeLow= number-2;
+        System.out.print(rangeLow + "-" + rangeHigh);
+        int bBucks= BearBucksInput();
+        System.out.print(bBucks);
+
         Vendor myVendor = new Vendor();
         myVendor.displayVendor();
     }
@@ -43,7 +43,8 @@ public class Vendor {
             number=3;
         }
         return number;
-        }
+        
+    }
     
 
     public static int BearBucksInput(){
@@ -56,8 +57,6 @@ public class Vendor {
         finally{
             input.close();
         }
-        
-        
     }
 
 }
