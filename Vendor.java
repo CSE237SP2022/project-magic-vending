@@ -1,4 +1,4 @@
-package src.test;
+
 
 import java.util.Scanner;
 public class Vendor {  
