@@ -5,55 +5,65 @@ public class Vendor {
     
     public Vendor(int width, int height){
         items = new VendingItem[width][height];
-
-        // this.foods = new String[4][5];
-        // this.prices = new Double[4][5];
-        // foods[0][0] = "🍏"; foods[0][1] = "🍌"; foods[0][2] = "🍇"; foods[0][3] = "🫐"; foods[0][4] = "🌮";
-        // foods[1][0] = "🥦"; foods[1][1] = "🥑"; foods[1][2] = "🫒"; foods[1][3] = "🧄"; foods[1][4] = "💩";
-
-        // prices[0][0] = 2.00; prices[0][1] = .75; prices[0][2] = 2.75; prices[0][3] = 2.50; prices[0][4] = 4.00;
-        // prices[1][0] = 1.40; prices[1][1] = 2.30; prices[1][2] = .30; prices[1][3] = .45; prices[1][4] = .69;
-
+        addItems();
     }
 
     public static void main(String[] args){
-        Vendor myVendor = new Vendor();
+        Vendor myVendor = new Vendor(4, 5);
         myVendor.displayVendor();
         System.out.println("\nWelcome to Magic Vendor!");
-        myVendor.bearBucksPrompt();
+        // myVendor.bearBucksPrompt();
+    }
+
+    public void addItems(){
+        items[0][0] = new VendingItem(3, "🥑", "avocado", 2.50);
+        items[0][1] = new VendingItem(3, "🌮", "taco", 3.70);
+        items[0][2] = new VendingItem(3, "🍇", "grapes", 2.50);
+        items[0][3] = new VendingItem(2, "🍏", "apple", 1.20);
+        items[0][4] = new VendingItem(4, "🥨", "pretzel", 3.10);
     }
 
     /**
-     * gets vending item at specified coordinates, y-coordinates measured from top-down
-     * @return VendingItem object that includes name, emoji, price
+     * @return VendingItem at specified coordinates, y-coordinates measured from top-down
      */
     public VendingItem getItemAt(int xCoord, int yCoord){
         return items[xCoord][yCoord];
     }
 
+    public int getNumItemsAt(int x, int y){
+        return items[x][y].getQuantity();
+    }
+
+    /**
+     * @return previous item at spot, if it existed
+     */
+    public VendingItem addItem(VendingItem newItem, int x, int y){
+        VendingItem prevItem = items[x][y];
+        items[x][y] = newItem;
+        return prevItem;
+    }
+
     /** 
-     * Prints a visual representation of vending machine products & prices to stdout.
+     * Prints a visual representation of vending machine products & prices
     */
     public void displayVendor(){
         System.out.println("\t1 \t2 \t3 \t4 \t5");
         System.out.println("-------------------------------------------");
-        for(int i = 0; i<2; i++){
-            printEmojisForLine(i);
-            printPricesForLine(i);
+        for(int i = 0; i<1; i++){
+            printLine(i);
         }
-     
     }
-        enum lineLetters{A, B, C, D}
+        enum lineLetters{A, B, C, D, E}
         
-        public void printEmojisForLine(int line){
-            System.out.println(lineLetters.values()[line] + "\t" + foods[line][0] + "\t" + 
-                foods[line][1] + "\t" + foods[line][2] + "\t" + foods[line][3] + "\t" + 
-                foods[line][4]);
-        }
-        
-        public void printPricesForLine(int line){
-            System.out.println("$\t" + prices[line][0] + "\t" + prices[line][1] + "\t" + prices[line][2] + "\t" +
-            prices[line][3] + "\t" + prices[line][4]);
+        public void printLine(int line){
+            System.out.print(lineLetters.values()[line]);
+            for(int y = 0; y < items[line].length; y++){
+                System.out.print("\t" + items[line][y].getEmoji());
+            }
+            System.out.println();
+            for(int y = 0; y < items[line].length; y++){
+                System.out.print("\t" + items[line][y].getPrice());
+            }
         }
 
     /**

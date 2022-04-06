@@ -41,7 +41,8 @@ public class VendorTestingSuite {
 
     @Test
     public void testAddItem() {
-        testVendor.addItem(3, "🥑", "avocado", 2.50, 0, 0);
+        VendingItem testItem = new VendingItem(3, "🥑", "avocado", 2.50);
+        testVendor.addItem(testItem, 0, 0);
         assertEquals(testVendor.getNumItemsAt(0, 0), 3);
         assertEquals("avocado", testVendor.getItemAt(0, 0).getName());
         assertEquals("🥑", testVendor.getItemAt(0, 0).getEmoji());
