@@ -4,9 +4,6 @@ public class Vendor {
     private String[][] foods;
     private Double[][] prices;
     
-    /**
-     * initializes 2D array of foods and their prices
-     */
     public Vendor(){
         this.foods = new String[4][5];
         this.prices = new Double[4][5];
@@ -38,19 +35,13 @@ public class Vendor {
      
     }
         enum lineLetters{A, B, C, D}
-        /**
-         * Helper function for displayVendor
-         * @param line row of vending machine to print food emojis for
-         */
+        
         public void printEmojisForLine(int line){
             System.out.println(lineLetters.values()[line] + "\t" + foods[line][0] + "\t" + 
                 foods[line][1] + "\t" + foods[line][2] + "\t" + foods[line][3] + "\t" + 
                 foods[line][4]);
         }
-        /**
-         * Helper function for displayVendor
-         * @param line row of vending machine to print prices for
-         */
+        
         public void printPricesForLine(int line){
             System.out.println("$\t" + prices[line][0] + "\t" + prices[line][1] + "\t" + prices[line][2] + "\t" +
             prices[line][3] + "\t" + prices[line][4]);
