@@ -1,5 +1,6 @@
 
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.ByteArrayOutputStream;
@@ -25,7 +26,7 @@ public class VendorTestingSuite {
     */
     @Before
     public void initialize() {
-        testVendor = new Vendor();
+        testVendor = new Vendor(4, 5);
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
@@ -36,6 +37,16 @@ public class VendorTestingSuite {
     public void testDisplay() {
         testVendor.displayVendor();
         assertNotNull(outputStreamCaptor);
+    }
+
+    @Test
+    public void testAddItem() {
+        VendingItem testItem = new VendingItem(3, "🥑", "avocado", 2.50);
+        testVendor.addItem(testItem, 0, 0);
+        assertEquals(testVendor.getNumItemsAt(0, 0), 3);
+        assertEquals("avocado", testVendor.getItemAt(0, 0).getName());
+        assertEquals("🥑", testVendor.getItemAt(0, 0).getEmoji());
+        assertEquals(2.50, testVendor.getItemAt(0, 0).getPrice(), .01);
     }
 
     /*reassign system output to stdout after testing
