@@ -23,4 +23,13 @@ public class Cart {
         if(cartItems.containsKey(item)) cartItems.remove(item);
     }
 
+    public double calculateSubtotal(){
+        double currTotal = 0;
+        HashMap<VendingItem, Integer> cartItems = getItems();
+        for(VendingItem item : cartItems.keySet()){
+            currTotal += item.getPrice() * cartItems.get(item);
+        }
+        return currTotal;
+    }
+
 }
