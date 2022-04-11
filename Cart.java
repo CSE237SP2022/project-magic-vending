@@ -12,15 +12,15 @@ public class Cart {
     }
 
     public void addItem(VendingItem item){
-        HashMap<VendingItem, Integer> items = getItems();
-        if(items.containsKey(item)){
-            items.replace(item, items.get(item), items.get(item) + 1);
-        } else items.put(item, 1);
+        HashMap<VendingItem, Integer> cartItems = getItems();
+        if(cartItems.containsKey(item)){
+            cartItems.replace(item, items.get(item), items.get(item) + 1);
+        } else cartItems.put(item, 1);
     }
 
     public void removeItem(VendingItem item){
-        HashMap<VendingItem, Integer> items = getItems();
-        if(items.containsKey(item)) items.remove(item);
+        HashMap<VendingItem, Integer> cartItems = getItems();
+        if(cartItems.containsKey(item)) cartItems.remove(item);
     }
 
 }
