@@ -12,6 +12,7 @@ public class Vendor {
         Vendor myVendor = new Vendor(4, 5);
         myVendor.displayVendor();
         System.out.println("\nWelcome to Magic Vendor!");
+        addOrCheckout();
         // myVendor.bearBucksPrompt();
     }
 
@@ -116,6 +117,33 @@ public class Vendor {
         finally{
             input.close();
         }
+    }
+
+    public static void addOrCheckout(){
+        System.out.println("Would you like to continue adding items or checkout? Enter 'add' or 'checkout' or 'q' to quit");
+        Scanner input = new Scanner(System.in);
+        while(true){
+            
+            String response = input.nextLine();
+            if(response.equals("add")){
+                //add to cart function
+                break;
+            }
+            else if(response.equals("checkout")){
+                //checkout function
+                break;
+            }
+            else if(response.equals("q")){
+                break;
+            }
+            else{
+                System.out.println("Invalid Input");
+            }
+            
+        }
+        input.close();
+        
+
     }
 
 }
