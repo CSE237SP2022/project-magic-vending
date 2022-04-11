@@ -32,4 +32,8 @@ public class Cart {
         return currTotal;
     }
 
+    public void viewCart(){
+        
+    }
+
 }
