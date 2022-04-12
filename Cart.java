@@ -11,6 +11,7 @@ public class Cart {
         return this.items;
     }
 
+    //DOES NOT check for whether item is still in vending machine, so this needs to be done on other end
     public void addItem(VendingItem item){
         HashMap<VendingItem, Integer> cartItems = getItems();
         if(cartItems.containsKey(item)){
@@ -18,6 +19,7 @@ public class Cart {
         } else cartItems.put(item, 1);
     }
 
+    //Currently, this method removes the entire quantity of this item from the cart. That can be changed later, if we decide, instead, that it should only remove one of every food, at a time.
     public void removeItem(VendingItem item){
         HashMap<VendingItem, Integer> cartItems = getItems();
         if(cartItems.containsKey(item)) cartItems.remove(item);
@@ -50,7 +52,7 @@ public class Cart {
     public void viewPrices(Map<VendingItem, Integer> cartItems){
         System.out.println("\t");
         for(VendingItem item : cartItems.keySet()){
-            System.out.print(item.getPrice() + "\t");
+            System.out.print("$" + item.getPrice() + "\t");
         }
     }
 
