@@ -33,7 +33,32 @@ public class Cart {
     }
 
     public void viewCart(){
-        
+        System.out.println("");
+        System.out.println("-------------------------------------------");
+        viewEmojis(getItems());
+        viewPrices(getItems());
+        viewQuantities(getItems());
+    }
+
+    public void viewEmojis(Map<VendingItem, Integer> cartItems){
+        System.out.println("\t");
+        for(VendingItem item : cartItems.keySet()){
+            System.out.print(item.getEmoji() + "\t");
+        }
+    }
+
+    public void viewPrices(Map<VendingItem, Integer> cartItems){
+        System.out.println("\t");
+        for(VendingItem item : cartItems.keySet()){
+            System.out.print(item.getPrice() + "\t");
+        }
+    }
+
+    public void viewQuantities(Map<VendingItem, Integer> cartItems){
+        System.out.println("\t");
+        for(VendingItem item : cartItems.keySet()){
+            System.out.print("x" + cartItems.get(item) + "\t");
+        }
     }
 
 }
