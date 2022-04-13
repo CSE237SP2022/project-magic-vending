@@ -4,6 +4,32 @@ public class Vendor {
     private String[][] foods;
     private Double[][] prices;
     
+    public Vendor(int width, int height){
+        items = new VendingItem[width][height];
+        addItems();
+    }
+
+    public static void main(String[] args){
+        Vendor myVendor = new Vendor(4, 5);
+        myVendor.displayVendor();
+        System.out.println("\nWelcome to Magic Vendor!");
+        addOrCheckout();
+        // myVendor.bearBucksPrompt();
+    }
+
+    public void addItems(){
+        items[0][0] = new VendingItem(3, "🥑", "avocado", 2.50);
+        items[0][1] = new VendingItem(3, "🌮", "taco", 3.70);
+        items[0][2] = new VendingItem(3, "🍇", "grapes", 2.50);
+        items[0][3] = new VendingItem(2, "🍏", "green apple", 1.20);
+        items[0][4] = new VendingItem(4, "🥨", "pretzel", 3.10);
+        items[1][0] = new VendingItem(1, "🍎", "red apple", 1.10);
+        items[1][1] = new VendingItem(1, "🍑", "peach", 1.90);
+        items[1][2] = new VendingItem(1, "🍒", "cherries", 3.35);
+        items[1][3] = new VendingItem(3, "🍆", "eggplant", 2.65);
+        items[1][4] = new VendingItem(1, "🥖", "baguette", 2.95);
+    }
+
     /**
      * initializes 2D array of foods and their prices
      */
@@ -100,6 +126,33 @@ public class Vendor {
         finally{
             input.close();
         }
+    }
+
+    public static void addOrCheckout(){
+        System.out.println("Would you like to continue adding items or checkout? Enter 'add' or 'checkout' or 'q' to quit");
+        Scanner input = new Scanner(System.in);
+        while(true){
+            
+            String response = input.nextLine();
+            if(response.equals("add")){
+                //add to cart function
+                break;
+            }
+            else if(response.equals("checkout")){
+                //checkout function
+                break;
+            }
+            else if(response.equals("q")){
+                break;
+            }
+            else{
+                System.out.println("Invalid Input");
+            }
+            
+        }
+        input.close();
+        
+
     }
 
 }
