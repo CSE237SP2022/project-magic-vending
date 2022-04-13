@@ -1,11 +1,12 @@
 import java.util.Scanner;
 
 public class Vendor {  
-    private String[][] foods;
-    private Double[][] prices;
+    public VendingItem items[][];
+    // public Cart cart;
     
     public Vendor(int width, int height){
         items = new VendingItem[width][height];
+        // cart = new Cart();
         addItems();
     }
 
@@ -28,21 +29,19 @@ public class Vendor {
         items[1][2] = new VendingItem(1, "🍒", "cherries", 3.35);
         items[1][3] = new VendingItem(3, "🍆", "eggplant", 2.65);
         items[1][4] = new VendingItem(1, "🥖", "baguette", 2.95);
+
+        items[2][0] = new VendingItem(2, "🧀", "Cheese", 2.60);
+        items[2][1] = new VendingItem(1, "🍔", "Burger", 4.20);
+        items[2][2] = new VendingItem(1, "🍗", "Turkey leg", 3.35);
+        items[2][3] = new VendingItem(3, "🍕", "Pizza", 2.45);
+        items[2][4] = new VendingItem(1, "🥞", "Flapjacks", 1.05);
+        items[3][0] = new VendingItem(1, "🥐", "Croissant", 1.10);
+        items[3][1] = new VendingItem(1, "🥪", "Sandwich", 5.20);
+        items[3][2] = new VendingItem(1, "🧆", "Falafel", 2.85);
+        items[3][3] = new VendingItem(3, "🍬", "Candy", 0.65);
+        items[3][4] = new VendingItem(1, "🍩", "Donut", 1.15);
     }
 
-    /**
-     * initializes 2D array of foods and their prices
-     */
-    public Vendor(){
-        this.foods = new String[4][5];
-        this.prices = new Double[4][5];
-        foods[0][0] = "🍏"; foods[0][1] = "🍌"; foods[0][2] = "🍇"; foods[0][3] = "🫐"; foods[0][4] = "🌮";
-        foods[1][0] = "🥦"; foods[1][1] = "🥑"; foods[1][2] = "🫒"; foods[1][3] = "🧄"; foods[1][4] = "💩";
-
-        prices[0][0] = 2.00; prices[0][1] = .75; prices[0][2] = 2.75; prices[0][3] = 2.50; prices[0][4] = 4.00;
-        prices[1][0] = 1.40; prices[1][1] = 2.30; prices[1][2] = .30; prices[1][3] = .45; prices[1][4] = .69;
-
-    }
 
     public static void main(String[] args){
         Vendor myVendor = new Vendor();
@@ -51,36 +50,52 @@ public class Vendor {
         myVendor.bearBucksPrompt();
     }
 
+    /**
+     * parses user input and calls Cart.addItem()
+     * @param input user-input string in format of "a5", "b2", etc.
+     * @return false if user input invalid
+     */
+    public boolean buyItem(String input){
+        String filteredInput = input.toUpperCase();
+        System.out.println(filteredInput);
+        if(!filteredInput.matches("[ABCD][12345]")){
+            return false;
+        }
+        char rowAsChar = filteredInput.charAt(0);
+        int row = (int) rowAsChar - 65;
+        System.out.println("row: " + row); 
+        int col = filteredInput.charAt(1) - 49;
+        System.out.println("col: " + col);
+        VendingItem boughtItem = getItemAt(row, col);
+        // cart.addItem(boughtItem);
+        return true;
+    }
+
     /** 
      * Prints a visual representation of vending machine products & prices to stdout.
     */
     public void displayVendor(){
         System.out.println("\t1 \t2 \t3 \t4 \t5");
         System.out.println("-------------------------------------------");
-        for(int i = 0; i<2; i++){
-            printEmojisForLine(i);
-            printPricesForLine(i);
         }
-     
+        for(int i = 0; i<items.length; i++){
+            printLine(i);
+        }
     }
-    enum lineLetters{A, B, C, D}
-    /**
-     * Helper function for displayVendor
-     * @param line row of vending machine to print food emojis for
-     */
-    public void printEmojisForLine(int line){
-        System.out.println(lineLetters.values()[line] + "\t" + foods[line][0] + "\t" + 
-            foods[line][1] + "\t" + foods[line][2] + "\t" + foods[line][3] + "\t" + 
-            foods[line][4]);
-    }
-    /**
-     * Helper function for displayVendor
-     * @param line row of vending machine to print prices for
-     */
-    public void printPricesForLine(int line){
-        System.out.println("$\t" + prices[line][0] + "\t" + prices[line][1] + "\t" + prices[line][2] + "\t" +
-        prices[line][3] + "\t" + prices[line][4]);
-    }
+ 
+        enum lineLetters{A, B, C, D, E}
+        
+        public void printLine(int line){
+            System.out.print(lineLetters.values()[line]);
+            for(int y = 0; y < items[line].length; y++){
+                System.out.print("\t" + items[line][y].getEmoji());
+            }
+            System.out.println();
+            for(int y = 0; y < items[line].length; y++){
+                System.out.print("\t" + items[line][y].getPrice());
+            }
+            System.out.println();
+        }
 
     /**
      * Prompts user to input their bear bucks
