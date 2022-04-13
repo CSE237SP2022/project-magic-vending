@@ -14,7 +14,7 @@ public class Vendor {
         Vendor myVendor = new Vendor(4, 5);
         myVendor.displayVendor();
         System.out.println("\nWelcome to Magic Vendor!");
-        myVendor.buyItem("a4");
+        addOrCheckout();
         // myVendor.bearBucksPrompt();
     }
 
@@ -42,24 +42,12 @@ public class Vendor {
         items[3][4] = new VendingItem(1, "🍩", "Donut", 1.15);
     }
 
-    /**
-     * @return VendingItem at specified coordinates, y-coordinates measured from top-down
-     */
-    public VendingItem getItemAt(int xCoord, int yCoord){
-        return items[xCoord][yCoord];
-    }
 
-    public int getNumItemsAt(int x, int y){
-        return items[x][y].getQuantity();
-    }
-
-    /**
-     * @return previous item at spot, if it existed
-     */
-    public VendingItem addItem(VendingItem newItem, int x, int y){
-        VendingItem prevItem = items[x][y];
-        items[x][y] = newItem;
-        return prevItem;
+    public static void main(String[] args){
+        Vendor myVendor = new Vendor();
+        myVendor.displayVendor();
+        System.out.println("\nWelcome to Magic Vendor!");
+        myVendor.bearBucksPrompt();
     }
 
     /**
@@ -84,16 +72,17 @@ public class Vendor {
     }
 
     /** 
-     * Prints a visual representation of vending machine products & prices
+     * Prints a visual representation of vending machine products & prices to stdout.
     */
     public void displayVendor(){
         System.out.println("\t1 \t2 \t3 \t4 \t5");
         System.out.println("-------------------------------------------");
+        }
         for(int i = 0; i<items.length; i++){
             printLine(i);
         }
     }
-    
+ 
         enum lineLetters{A, B, C, D, E}
         
         public void printLine(int line){
@@ -152,6 +141,33 @@ public class Vendor {
         finally{
             input.close();
         }
+    }
+
+    public static void addOrCheckout(){
+        System.out.println("Would you like to continue adding items or checkout? Enter 'add' or 'checkout' or 'q' to quit");
+        Scanner input = new Scanner(System.in);
+        while(true){
+            
+            String response = input.nextLine();
+            if(response.equals("add")){
+                //add to cart function
+                break;
+            }
+            else if(response.equals("checkout")){
+                //checkout function
+                break;
+            }
+            else if(response.equals("q")){
+                break;
+            }
+            else{
+                System.out.println("Invalid Input");
+            }
+            
+        }
+        input.close();
+        
+
     }
 
 }
