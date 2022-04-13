@@ -35,11 +35,18 @@ public class Cart {
     }
 
     public void viewCart(){
-        System.out.println("");
-        System.out.println("-------------------------------------------");
-        viewEmojis(getItems());
-        viewPrices(getItems());
-        viewQuantities(getItems());
+        if(getItems().isEmpty()){
+            System.out.println("Cart is empty");
+            System.out.println();
+        }
+        else {
+            System.out.println("");
+            System.out.println("-------------------------------------------");
+            viewEmojis(getItems());
+            viewPrices(getItems());
+            viewQuantities(getItems());
+            System.out.println("\n");
+        }
     }
 
     public void viewEmojis(Map<VendingItem, Integer> cartItems){

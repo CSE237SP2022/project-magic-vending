@@ -1,12 +1,13 @@
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class Vendor {  
     public VendingItem items[][];
-    // public Cart cart;
+    public Cart cart;
     
     public Vendor(int width, int height){
         items = new VendingItem[width][height];
-        // cart = new Cart();
+        cart = new Cart();
         addItems();
     }
 
@@ -14,7 +15,7 @@ public class Vendor {
         Vendor myVendor = new Vendor(4, 5);
         myVendor.displayVendor();
         System.out.println("\nWelcome to Magic Vendor!");
-        addOrCheckout();
+        myVendor.addOrCheckout();
         // myVendor.bearBucksPrompt();
     }
 
@@ -42,12 +43,16 @@ public class Vendor {
         items[3][4] = new VendingItem(1, "🍩", "Donut", 1.15);
     }
 
+    public VendingItem getItemAt(int x, int y){
+        return items[x][y];
+    }
 
-    public static void main(String[] args){
-        Vendor myVendor = new Vendor();
-        myVendor.displayVendor();
-        System.out.println("\nWelcome to Magic Vendor!");
-        myVendor.bearBucksPrompt();
+    public void addItem(VendingItem item, int x, int y){
+        items[x][y] = item;
+    }
+
+    public int getNumItemsAt(int x, int y){
+        return items[x][y].getQuantity();
     }
 
     /**
@@ -57,17 +62,14 @@ public class Vendor {
      */
     public boolean buyItem(String input){
         String filteredInput = input.toUpperCase();
-        System.out.println(filteredInput);
         if(!filteredInput.matches("[ABCD][12345]")){
             return false;
         }
         char rowAsChar = filteredInput.charAt(0);
         int row = (int) rowAsChar - 65;
-        System.out.println("row: " + row); 
         int col = filteredInput.charAt(1) - 49;
-        System.out.println("col: " + col);
         VendingItem boughtItem = getItemAt(row, col);
-        // cart.addItem(boughtItem);
+        cart.addItem(boughtItem);
         return true;
     }
 
@@ -77,13 +79,14 @@ public class Vendor {
     public void displayVendor(){
         System.out.println("\t1 \t2 \t3 \t4 \t5");
         System.out.println("-------------------------------------------");
-        }
+        
         for(int i = 0; i<items.length; i++){
             printLine(i);
         }
+        System.out.println();
     }
  
-        enum lineLetters{A, B, C, D, E}
+        enum lineLetters{A, B, C, D, E};
         
         public void printLine(int line){
             System.out.print(lineLetters.values()[line]);
@@ -92,7 +95,7 @@ public class Vendor {
             }
             System.out.println();
             for(int y = 0; y < items[line].length; y++){
-                System.out.print("\t" + items[line][y].getPrice());
+                System.out.print("\t" + formatPrice(items[line][y].getPrice()));
             }
             System.out.println();
         }
@@ -143,22 +146,47 @@ public class Vendor {
         }
     }
 
-    public static void addOrCheckout(){
-        System.out.println("Would you like to continue adding items or checkout? Enter 'add' or 'checkout' or 'q' to quit");
+    public void checkout(){
+        String subtotal = formatPrice(cart.calculateSubtotal());
+        cart.viewCart();
+        System.out.println("You've purchased the above items for $" + subtotal);
+        System.out.println("Thanks for using magic vendor!\n");
+    }
+
+    public String formatPrice(Double price){
+        DecimalFormat df = new DecimalFormat("0.00");
+        return df.format(price);
+    }
+
+    public void addOrCheckout(){
         Scanner input = new Scanner(System.in);
         while(true){
-            
+            System.out.println("Options: enter 'add' to add an item to cart, 'cart' to view cart, 'show' to display the vending machine. 'checkout' to buy items in cart & quit");
             String response = input.nextLine();
+
             if(response.equals("add")){
-                //add to cart function
-                break;
+                while(true){
+                    System.out.println("Enter a vending item you want to buy in the form of A1, B3, etc.");
+                    String itemToBuy = input.nextLine();
+                    
+                    if(buyItem(itemToBuy)){
+                        System.out.println("Added item " + itemToBuy + " to cart.");
+                        break;
+                    }
+                }
+            }
+            else if(response.equals("cart")){
+                cart.viewCart();
             }
             else if(response.equals("checkout")){
-                //checkout function
+                checkout();
                 break;
             }
             else if(response.equals("q")){
                 break;
+            }
+            else if(response.equals("show")){
+                displayVendor();
             }
             else{
                 System.out.println("Invalid Input");
@@ -166,8 +194,6 @@ public class Vendor {
             
         }
         input.close();
-        
-
     }
 
 }
