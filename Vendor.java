@@ -26,6 +26,17 @@ public class Vendor {
         items[1][2] = new VendingItem(1, "🍒", "cherries", 3.35);
         items[1][3] = new VendingItem(3, "🍆", "eggplant", 2.65);
         items[1][4] = new VendingItem(1, "🥖", "baguette", 2.95);
+
+        items[2][0] = new VendingItem(2, "🧀", "Cheese", 2.60);
+        items[2][1] = new VendingItem(1, "🍔", "Burger", 4.20);
+        items[2][2] = new VendingItem(1, "🍗", "Turkey leg", 3.35);
+        items[2][3] = new VendingItem(3, "🍕", "Pizza", 2.45);
+        items[2][4] = new VendingItem(1, "🥞", "Flapjacks", 1.05);
+        items[3][0] = new VendingItem(1, "🥐", "Croissant", 1.10);
+        items[3][1] = new VendingItem(1, "🥪", "Sandwich", 5.20);
+        items[3][2] = new VendingItem(1, "🧆", "Falafel", 2.85);
+        items[3][3] = new VendingItem(3, "🍬", "Candy", 0.65);
+        items[3][4] = new VendingItem(1, "🍩", "Donut", 1.15);
     }
 
     /**
@@ -54,7 +65,7 @@ public class Vendor {
     public void displayVendor(){
         System.out.println("\t1 \t2 \t3 \t4 \t5");
         System.out.println("-------------------------------------------");
-        for(int i = 0; i<2; i++){
+        for(int i = 0; i<items.length; i++){
             printLine(i);
         }
     }

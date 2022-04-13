@@ -49,6 +49,11 @@ public class VendorTestingSuite {
         assertEquals(2.50, testVendor.getItemAt(0, 0).getPrice(), .01);
     }
 
+    @Test
+    public void testBuyItem() {
+        
+    }
+
     /*reassign system output to stdout after testing
     @AfterClass  annotation runs after all @Test methods have completed
     */
