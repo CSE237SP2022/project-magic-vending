@@ -1,7 +1,9 @@
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -51,7 +53,14 @@ public class VendorTestingSuite {
 
     @Test
     public void testBuyItem() {
-        
+        assertFalse("input validation not working", testVendor.buyItem("szxxc"));
+        assertFalse("input validation not working", testVendor.buyItem("f3"));
+        assertFalse("input validation not working", testVendor.buyItem("56"));
+        assertFalse("input validation not working", testVendor.buyItem("12348910234"));
+        assertTrue("input validation not working", testVendor.buyItem("a4"));
+        assertTrue("input validation not working", testVendor.buyItem("b1"));
+        assertTrue("input validation not working", testVendor.buyItem("c3"));
+        assertTrue("input validation not working", testVendor.buyItem("d5"));
     }
 
     /*reassign system output to stdout after testing

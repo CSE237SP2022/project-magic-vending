@@ -2,9 +2,11 @@ import java.util.Scanner;
 
 public class Vendor {  
     public VendingItem items[][];
+    // public Cart cart;
     
     public Vendor(int width, int height){
         items = new VendingItem[width][height];
+        // cart = new Cart();
         addItems();
     }
 
@@ -12,6 +14,7 @@ public class Vendor {
         Vendor myVendor = new Vendor(4, 5);
         myVendor.displayVendor();
         System.out.println("\nWelcome to Magic Vendor!");
+        myVendor.buyItem("a4");
         // myVendor.bearBucksPrompt();
     }
 
@@ -57,6 +60,27 @@ public class Vendor {
         VendingItem prevItem = items[x][y];
         items[x][y] = newItem;
         return prevItem;
+    }
+
+    /**
+     * parses user input and calls Cart.addItem()
+     * @param input user-input string in format of "a5", "b2", etc.
+     * @return false if user input invalid
+     */
+    public boolean buyItem(String input){
+        String filteredInput = input.toUpperCase();
+        System.out.println(filteredInput);
+        if(!filteredInput.matches("[ABCD][12345]")){
+            return false;
+        }
+        char rowAsChar = filteredInput.charAt(0);
+        int row = (int) rowAsChar - 65;
+        System.out.println("row: " + row); 
+        int col = filteredInput.charAt(1) - 49;
+        System.out.println("col: " + col);
+        VendingItem boughtItem = getItemAt(row, col);
+        // cart.addItem(boughtItem);
+        return true;
     }
 
     /** 
