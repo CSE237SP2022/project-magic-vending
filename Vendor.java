@@ -93,6 +93,7 @@ public class Vendor {
             printLine(i);
         }
     }
+    
         enum lineLetters{A, B, C, D, E}
         
         public void printLine(int line){
