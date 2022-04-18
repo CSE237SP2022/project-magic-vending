@@ -59,7 +59,7 @@ public class Cart {
     public void viewPrices(Map<VendingItem, Integer> cartItems){
         System.out.println("\t");
         for(VendingItem item : cartItems.keySet()){
-            System.out.print("$" + item.getPrice() + "\t");
+            System.out.print("$" + Vendor.formatPrice(item.getPrice()) + "\t");
         }
     }
 
