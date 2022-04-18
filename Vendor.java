@@ -126,7 +126,6 @@ public class Vendor {
             
             String response = input.nextLine();
             if(response.equals("add")){
-                //add to cart function
                 break;
             }
             else if(response.equals("checkout")){
