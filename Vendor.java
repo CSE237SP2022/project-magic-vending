@@ -1,22 +1,44 @@
 import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
-public class Vendor {  
+public class Vendor { 
+
+    private State state;
     private VendingItem items[][];
     private Cart cart;
-    
+
     public Vendor(int width, int height){
         items = new VendingItem[width][height];
         cart = new Cart();
         addItems();
+        state = pickState();
     }
 
     public static void main(String[] args){
         Vendor myVendor = new Vendor(4, 5);
         myVendor.displayVendor();
         System.out.println("\nWelcome to Magic Vendor!");
+        System.out.println("\nWe are currently situated in " + myVendor.getState());
         myVendor.addOrCheckout();
     }
+
+    public enum State {
+        AL(4), AK(0), AZ(5.6), AR(6.5), CA(7.25), CO(2.9), CT(6.35), DE(0), FL(6), GA(4), HI(4), ID(6), IL(6.25), IN(7), IA(6),
+        KS(6.5), KY(5), LA(4.45), ME(5.5), MD(6), MA(6.25), MI(6), MN(6.88), MS(7), MO(4.23), MT(0), NE(5.5), NV(6.85),
+        NH(0), NJ(6.63), NM(6.13), NY(4), NC(4.75), ND(5), OH(5.75), OK(4.5), OR(0), PA(6), RI(7), SC(6), SD(4.5), TN(7),
+        TX(6.25), UT(5.95), VT(6), VA(5.3), WA(6.5), WV(6), WI(5), WY(4);
+        private double taxRate;
+
+        private State(double taxRate){
+            this.taxRate = taxRate;
+        }
+
+        private double getTaxRate(){
+            return this.taxRate;
+        }
+    } 
 
     public void addItems(){
         items[0][0] = new VendingItem(3, "🥑", "avocado", 2.50);
@@ -40,6 +62,15 @@ public class Vendor {
         items[3][2] = new VendingItem(1, "🧆", "Falafel", 2.85);
         items[3][3] = new VendingItem(3, "🍬", "Candy", 0.65);
         items[3][4] = new VendingItem(1, "🍩", "Donut", 1.15);
+    }
+
+    public State pickState(){
+        double randVal = Math.random();
+        return State.values()[((int) (randVal * 100)) / 2 ];
+    }
+
+    public State getState(){
+        return state;
     }
 
     public VendingItem getItemAt(int x, int y){
@@ -125,9 +156,9 @@ public class Vendor {
     }
 
     public void checkout(){
-        String subtotal = formatPrice(cart.calculateSubtotal());
+        String total = formatPrice(cart.calculateSubtotal() * ((100.0 + getState().getTaxRate())/100.0));
         cart.viewCart();
-        System.out.println("You've purchased the above items for $" + subtotal);
+        System.out.println("You've purchased the above items for $" + total);
         System.out.println("Thanks for using magic vendor!\n");
     }
 

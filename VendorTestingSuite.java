@@ -63,6 +63,11 @@ public class VendorTestingSuite {
         assertTrue("input validation not working", testVendor.buyItem("d5"));
     }
 
+    @Test
+    public void testSalesTax(){
+        //test will go here
+    }
+
     /*reassign system output to stdout after testing
     @AfterClass  annotation runs after all @Test methods have completed
     */
