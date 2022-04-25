@@ -16,6 +16,7 @@ We may want to separate this into different testing classes in the future. Not s
 */
 public class VendorTestingSuite {
     Vendor testVendor;
+    Cart testCart;
 
     //For testing Stdout output, taken from https://www.baeldung.com/java-testing-system-out-println
     private final PrintStream standardOut = System.out;
@@ -61,11 +62,6 @@ public class VendorTestingSuite {
         assertTrue("input validation not working", testVendor.buyItem("b1"));
         assertTrue("input validation not working", testVendor.buyItem("c3"));
         assertTrue("input validation not working", testVendor.buyItem("d5"));
-    }
-
-    @Test
-    public void testSalesTax(){
-        //test will go here
     }
 
     /*reassign system output to stdout after testing

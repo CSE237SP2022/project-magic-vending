@@ -5,8 +5,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import org.junit.*;
 
-import Cart.State;
-
 
 public class CartTestingSuite {
     Cart testingCart;
