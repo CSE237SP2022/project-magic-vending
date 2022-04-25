@@ -5,6 +5,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import org.junit.*;
 
+import Cart.State;
+
+
 public class CartTestingSuite {
     Cart testingCart;
 
@@ -21,7 +24,7 @@ public class CartTestingSuite {
     public void testAddItem() {
         VendingItem testItem = new VendingItem(3, "🥑", "avocado", 2.50);
         testingCart.addItem(testItem);
-        assertEquals(testingCart.getItems().containsKey(testItem), true);
+        assertEquals(true, testingCart.getItems().containsKey(testItem));
     }
 
     @Test
@@ -29,7 +32,7 @@ public class CartTestingSuite {
         VendingItem testItem = new VendingItem(3, "🥑", "avocado", 2.50);
         testingCart.addItem(testItem);
         testingCart.removeItem(testItem);
-        assertEquals(testingCart.getItems().containsKey(testItem), true);
+        assertEquals(true, testingCart.getItems().containsKey(testItem));
     }
 
     @Test
@@ -42,7 +45,24 @@ public class CartTestingSuite {
         }
         testingCart.addItem(testItemTwo);
         testingCart.addItem(testItemThree);
-        assertEquals(testingCart.calculateSubtotal(), 10.25, 0.1);
+        assertEquals(10.25, testingCart.calculateSubtotal(), 0.1);
+    }
+
+    @Test
+    public void testSalesTax(){
+        //Testing with MO sales tax (4.23%)
+        VendingItem testItemOne = new VendingItem(3, "🥑", "avocado", 2.50);
+        VendingItem testItemTwo = new VendingItem(5, "🍏", "apple", 2.00); 
+        VendingItem testItemThree = new VendingItem(2, "🍌", "banana", 0.75);
+        for(int i = 0; i < 3; ++i){
+            testingCart.addItem(testItemOne);
+        }
+        testingCart.addItem(testItemTwo);
+        testingCart.addItem(testItemThree);
+        testingCart.setState(Cart.State.MO);
+        double expectedTotal = 10.68;
+        double actualTotal = testingCart.calculateSubtotal() * (100 + testingCart.getState().getTaxRate())/100.0;
+        assertEquals(expectedTotal, actualTotal, 0.1);
     }
 
     @Test
