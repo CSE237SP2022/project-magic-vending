@@ -1,11 +1,15 @@
 import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
-public class Vendor {  
+public class Vendor { 
+
     private VendingItem items[][];
     private Cart cart;
     private double magicNumber;
     
+
     public Vendor(int width, int height){
         items = new VendingItem[width][height];
         cart = new Cart();
@@ -135,7 +139,7 @@ public class Vendor {
     }
 
     public void checkout(){
-        String subtotal = formatPrice(cart.calculateSubtotal());
+        String total = formatPrice(cart.calculateSubtotal() * ((100.0 + cart.getState().getTaxRate())/100.0));
         cart.viewCart();
         System.out.println("Your subtotal is: $"+ subtotal+ "and your magic number was: $" + formatPrice(magicNumber));
         if(withinMagicRange(magicNumber, cart.calculateSubtotal())){
