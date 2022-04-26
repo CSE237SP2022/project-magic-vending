@@ -16,6 +16,7 @@ We may want to separate this into different testing classes in the future. Not s
 */
 public class VendorTestingSuite {
     Vendor testVendor;
+    Cart testCart;
 
     //For testing Stdout output, taken from https://www.baeldung.com/java-testing-system-out-println
     private final PrintStream standardOut = System.out;
