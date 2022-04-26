@@ -137,8 +137,25 @@ public class Vendor {
     public void checkout(){
         String subtotal = formatPrice(cart.calculateSubtotal());
         cart.viewCart();
-        System.out.println("You've purchased the above items for $" + subtotal);
+        System.out.println("Your subtotal is: $"+ subtotal+ "and your magic number was: $" + formatPrice(magicNumber));
+        if(withinMagicRange(magicNumber, cart.calculateSubtotal())){
+            System.out.println("Congratulations! You stayed within the magic range. Enjoy your items for free!");
+        }
+        else{
+            System.out.println("Sorry! Your total was outside the magic range, looks like you'll have to pay for those items!");
+        }
         System.out.println("Thanks for using magic vendor!\n");
+    }
+
+    public boolean withinMagicRange(double magicNumber, double subtotal){
+        double rangeHigh= magicNumber+0.20;
+        double rangeLow= magicNumber-0.20;
+        if (subtotal>=rangeLow && subtotal<=rangeHigh){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public static String formatPrice(Double price){
