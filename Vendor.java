@@ -4,18 +4,28 @@ import java.util.Scanner;
 public class Vendor {  
     private VendingItem items[][];
     private Cart cart;
+    private double magicNumber;
     
     public Vendor(int width, int height){
         items = new VendingItem[width][height];
         cart = new Cart();
+        magicNumber = generateMagicNumber();
         addItems();
     }
 
     public static void main(String[] args){
         Vendor myVendor = new Vendor(4, 5);
         myVendor.displayVendor();
-        System.out.println("\nWelcome to Magic Vendor!");
+        myVendor.printInstructions();
         myVendor.addOrCheckout();
+    }
+
+    public void printInstructions(){
+        System.out.println("\nWelcome to Magic Vendor!");
+        System.out.println("\nYou will be given a magic number. In order to win the game, you must add up items in your cart and aim to get the total as close to the magic number as possible. But be careful, you won't be able to see the cart total until the very end, so choose wisely!");
+        System.out.println("\nYour magic number for this round is: "+ formatPrice(magicNumber));
+        System.out.println("Achieve a total within $0.20 of the magic number to win your items for free! Good luck!");
+       
     }
 
     public void addItems(){
@@ -54,6 +64,10 @@ public class Vendor {
         return items[x][y].getQuantity();
     }
 
+    public double getMagicNumber(){
+        return this.magicNumber;
+    }
+
     public void displayVendor(){
         System.out.println("\t1 \t2 \t3 \t4 \t5");
         System.out.println("-------------------------------------------");
@@ -82,11 +96,7 @@ public class Vendor {
      * Prompts user to input their bear bucks
      */
     public void bearBucksPrompt(){
-        int number = magicNumber();
-        int rangeHigh = number+2;
-        int rangeLow= number-2;
-        System.out.println("Magic number: $" + number + "✨");
-        System.out.println("Achieve a total between " + rangeLow + "-" + rangeHigh + " to win your items for free!");
+        
         System.out.println("Otherwise...pay the price.\n");
         int bBucks= bearBucksInput();
         System.out.print(bBucks);
@@ -96,8 +106,8 @@ public class Vendor {
      * Creates randomly selected magic number
      * @return magic number between 5-15
     */
-    public static int magicNumber(){
-        int number = (int)(Math.random()*10)+5;
+    public static double generateMagicNumber(){
+        double number = (Math.random()*10)+5;
         if(number<0){
             number = Math.abs(number);
         }
