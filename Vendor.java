@@ -151,7 +151,7 @@ public class Vendor {
         double rangeHigh= magicNumber+0.20;
         double rangeLow= magicNumber-0.20;
         if (subtotal>=rangeLow && subtotal<=rangeHigh){
-            return true;
+            return true; 
         }
         else{
             return false;
