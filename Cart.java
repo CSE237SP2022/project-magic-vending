@@ -58,7 +58,7 @@ public class Cart {
                 cartItems.remove(item);
             }
             else{
-                cartItems.replace(item, items.get(item), items.get(item) - 1);
+                cartItems.replace(item, items.get(item) - 1);
             }
             return true;
         }
@@ -76,7 +76,7 @@ public class Cart {
         return currTotal;
     }
 
-    public void viewCart(){
+    public void viewCart(boolean atCheckout){
         if(getItems().isEmpty()){
             System.out.println("Cart is empty");
             System.out.println();
@@ -88,7 +88,9 @@ public class Cart {
             viewEmojis(getItems());
             viewPrices(getItems());
             viewQuantities(getItems());
-            System.out.println("You can enter 'remove <item name>' to remove that item from your cart (e.g. 'remove banana' to remove one banana from cart) \n");
+            if(atCheckout){
+                System.out.println("You can enter 'remove <item name>' to remove that item from your cart (e.g. 'remove banana' to remove one banana from cart) \n");
+            }
         }
     }
 

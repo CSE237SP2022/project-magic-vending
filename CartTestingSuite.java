@@ -29,11 +29,10 @@ public class CartTestingSuite {
     public void testRemoveItem() {
         VendingItem testItem = new VendingItem(3, "🥑", "avocado", 2.50);
         testingCart.addItem(testItem);
-        testingCart.removeItem(testItem);
+        testingCart.addItem(testItem);
         assertEquals(true, testingCart.getItems().containsKey(testItem));
         for(int i = 0; i < 2; ++i) testingCart.removeItem(testItem);
         assertEquals(false, testingCart.removeItem(testItem));
-        
     }
 
     @Test
@@ -76,7 +75,7 @@ public class CartTestingSuite {
         }
         testingCart.addItem(testItemTwo);
         testingCart.addItem(testItemThree);
-        testingCart.viewCart();
+        testingCart.viewCart(false);
         assertNotNull(outputStreamCaptor);
     }
 
