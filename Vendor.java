@@ -26,31 +26,32 @@ public class Vendor {
 
     public void printInstructions(){
         System.out.println("\nWelcome to Magic Vendor!");
-        System.out.println("\nYou will be given a magic number. In order to win the game, you must add up items in your cart and aim to get the total as close to the magic number as possible. But be careful, you won't be able to see the cart total until the very end, so choose wisely!");
-        System.out.println("\nYour magic number for this round is: "+ formatPrice(magicNumber));
-        System.out.println("Achieve a total within $0.20 of the magic number to win your items for free! Good luck!");
+        System.out.println("\nYour magic number for this round is: ✨$" + formatPrice(magicNumber) + "✨. You're in " + cart.getState() + 
+            ", so your tax rate is " + cart.getState().getTaxRate() + "%. In order to win the game, you must add up items in your cart " + 
+            "and aim to get the after-tax total as close to this magic number as possible. But be careful, you won't be able to see the cart total" +
+            " until the very end, so choose wisely!");
+        System.out.println("Achieve a total within $0.20 of the magic number to win your items for free! Good luck 🙂\n");
        
     }
 
     public void addItems(){
-        items[0][0] = new VendingItem(3, "🥑", "avocado", 2.50);
-        items[0][1] = new VendingItem(3, "🌮", "taco", 3.70);
-        items[0][2] = new VendingItem(3, "🍇", "grapes", 2.50);
-        items[0][3] = new VendingItem(2, "🍏", "green apple", 1.20);
-        items[0][4] = new VendingItem(4, "🥨", "pretzel", 3.10);
-        items[1][0] = new VendingItem(1, "🍎", "red apple", 1.10);
-        items[1][1] = new VendingItem(1, "🍑", "peach", 1.90);
-        items[1][2] = new VendingItem(1, "🍒", "cherries", 3.35);
-        items[1][3] = new VendingItem(3, "🍆", "eggplant", 2.65);
-        items[1][4] = new VendingItem(1, "🥖", "baguette", 2.95);
-
-        items[2][0] = new VendingItem(2, "🧀", "Cheese", 2.60);
+        items[0][0] = new VendingItem(3, "🥑", "Avocado", 2.50);
+        items[0][1] = new VendingItem(3, "🌮", "Taco", 3.70);
+        items[0][2] = new VendingItem(3, "🍇", "Grapes", 2.50);
+        items[0][3] = new VendingItem(2, "🍏", "G-apple", 1.20);
+        items[0][4] = new VendingItem(4, "🥨", "Pretzel", 3.10);
+        items[1][0] = new VendingItem(1, "🍎", "R-apple", 1.10);
+        items[1][1] = new VendingItem(1, "🍑", "Peach", 1.90);
+        items[1][2] = new VendingItem(1, "🍒", "Cherry", 3.35);
+        items[1][3] = new VendingItem(3, "🍆", "Eggplan", 2.65);
+        items[1][4] = new VendingItem(1, "🥖", "Baguett", 2.95);
+        items[2][0] = new VendingItem(2, "🧀", "Cheddar", 2.60);
         items[2][1] = new VendingItem(1, "🍔", "Burger", 4.20);
-        items[2][2] = new VendingItem(1, "🍗", "Turkey leg", 3.35);
+        items[2][2] = new VendingItem(1, "🍗", "Turkey", 3.35);
         items[2][3] = new VendingItem(3, "🍕", "Pizza", 2.45);
-        items[2][4] = new VendingItem(1, "🥞", "Flapjacks", 1.05);
-        items[3][0] = new VendingItem(1, "🥐", "Croissant", 1.10);
-        items[3][1] = new VendingItem(1, "🥪", "Sandwich", 5.20);
+        items[2][4] = new VendingItem(1, "🥞", "Pancake", 1.05);
+        items[3][0] = new VendingItem(1, "🥐", "Croiss", 1.10);
+        items[3][1] = new VendingItem(1, "🥪", "Sandw", 5.20);
         items[3][2] = new VendingItem(1, "🧆", "Falafel", 2.85);
         items[3][3] = new VendingItem(3, "🍬", "Candy", 0.65);
         items[3][4] = new VendingItem(1, "🍩", "Donut", 1.15);
@@ -58,6 +59,17 @@ public class Vendor {
 
     public VendingItem getItemAt(int x, int y){
         return items[x][y];
+    }
+
+    public VendingItem getItemNamed(String name){
+        for(int i = 0; i <items.length; i++){
+            for(int j = 0; j < items[0].length; j++){
+                if(items[i][j].getName().toLowerCase().equals(name.toLowerCase())){
+                    return items[i][j];
+                }
+            }
+        }
+        return null;
     }
 
     public void addItem(VendingItem item, int x, int y){
@@ -79,7 +91,7 @@ public class Vendor {
         for(int i = 0; i<items.length; i++){
             printLine(i);
         }
-        System.out.println();
+        System.out.println("Magic number: " + formatPrice(magicNumber) + "\n");
     }
  
     enum lineLetters{A, B, C, D, E};
@@ -94,16 +106,6 @@ public class Vendor {
             System.out.print("\t" + formatPrice(items[line][y].getPrice()));
         }
         System.out.println();
-    }
-
-    /**
-     * Prompts user to input their bear bucks
-     */
-    public void bearBucksPrompt(){
-        
-        System.out.println("Otherwise...pay the price.\n");
-        int bBucks= bearBucksInput();
-        System.out.print(bBucks);
     }
 
     /** 
@@ -121,40 +123,27 @@ public class Vendor {
         return number;
         
     }
-    
-    /** 
-     * Prints message prompting for bear bucks input
-     * @return number of bearbucks input
-    */
-    public static int bearBucksInput(){
-        Scanner input = new Scanner(System.in);
-        try{
-        System.out.println("Enter amount of Bear Bucks");
-        int bearBucks = input.nextInt();
-        return bearBucks;
-        }
-        finally{
-            input.close();
-        }
-    }
+
 
     public void checkout(){
-        String total = formatPrice(cart.calculateSubtotal() * ((100.0 + cart.getState().getTaxRate())/100.0));
+        Double total = cart.calculateSubtotal() * (1.0 + cart.getState().getTaxRate() / 100.0);
         cart.viewCart();
-        System.out.println("Your subtotal is: $"+ subtotal+ "and your magic number was: $" + formatPrice(magicNumber));
-        if(withinMagicRange(magicNumber, cart.calculateSubtotal())){
-            System.out.println("Congratulations! You stayed within the magic range. Enjoy your items for free!");
+        System.out.println("Subtotal: $" + formatPrice(cart.calculateSubtotal()));
+        System.out.println("Tax: " + cart.getState().getTaxRate() + "% = $" + formatPrice(total - cart.calculateSubtotal()) );
+        System.out.println("Your total is: $"+ formatPrice(total) + " and your magic number was: $" + formatPrice(magicNumber));
+        if(withinMagicRange(magicNumber, total)){
+            System.out.println("Congratulations! 🥳 You stayed within the magic range. Enjoy your items for free!");
         }
         else{
-            System.out.println("Sorry! Your total was outside the magic range, looks like you'll have to pay for those items!");
+            System.out.println("Sorry 😔 Your total was outside the magic range. Looks like you'll have to pay for those items!");
         }
         System.out.println("Thanks for using magic vendor!\n");
     }
 
-    public boolean withinMagicRange(double magicNumber, double subtotal){
+    public boolean withinMagicRange(double magicNumber, double total){
         double rangeHigh= magicNumber+0.20;
         double rangeLow= magicNumber-0.20;
-        if (subtotal>=rangeLow && subtotal<=rangeHigh){
+        if (total>=rangeLow && total<=rangeHigh){
             return true; 
         }
         else{
@@ -179,6 +168,9 @@ public class Vendor {
             if(response.matches("add\\s.*")){
                 handleAdd(response);
             }
+            else if(response.matches("remove\\s.*")){
+                handleRemove(response);
+            }
             else if(response.equals("cart")){
                 cart.viewCart();
             }
@@ -196,8 +188,7 @@ public class Vendor {
         input.close();
     }
 
-    /**
-     * 
+    /** 
      * @param response passed item in form of a5, b2, etc.
      */
     public void handleAdd(String response){
@@ -210,6 +201,19 @@ public class Vendor {
         }
         else {
             System.out.println("Valid items are a1 - d5. For example, enter 'add c4' to add c4 to cart");
+        }
+    }
+
+    public void handleRemove(String response){
+        String itemToRemove = " ";
+        if(response.split("\\s").length > 1){
+            itemToRemove = response.split("\\s")[1];
+        }
+        if(cart.removeItem(getItemNamed(itemToRemove))){
+            System.out.println("Removed 1 " + itemToRemove + " from cart.");
+        }
+        else{
+            System.out.println("Enter the item name as it appears in the cart");
         }
     }
 

@@ -50,10 +50,21 @@ public class Cart {
         } else cartItems.put(item, 1);
     }
 
-    //Currently, this method removes the entire quantity of this item from the cart. That can be changed later, if we decide, instead, that it should only remove one of every food, at a time.
-    public void removeItem(VendingItem item){
+    //Returns false if the item was not already in cart
+    public boolean removeItem(VendingItem item){
         HashMap<VendingItem, Integer> cartItems = getItems();
-        if(cartItems.containsKey(item)) cartItems.remove(item);
+        if(cartItems.containsKey(item)) {
+            if(cartItems.get(item) == 1) {
+                cartItems.remove(item);
+            }
+            else{
+                cartItems.replace(item, items.get(item), items.get(item) - 1);
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public double calculateSubtotal(){
@@ -73,32 +84,40 @@ public class Cart {
         else {
             System.out.println("");
             System.out.println("-------------------------------------------");
+            viewNames(getItems());
             viewEmojis(getItems());
             viewPrices(getItems());
             viewQuantities(getItems());
-            System.out.println("\n");
+            System.out.println("You can enter 'remove <item name>' to remove that item from your cart\n");
         }
     }
 
     public void viewEmojis(Map<VendingItem, Integer> cartItems){
-        System.out.println("\t");
         for(VendingItem item : cartItems.keySet()){
-            System.out.print(item.getEmoji() + "\t");
+            System.out.print("\t" + item.getEmoji() );
         }
+        System.out.println();
     }
 
     public void viewPrices(Map<VendingItem, Integer> cartItems){
-        System.out.println("\t");
         for(VendingItem item : cartItems.keySet()){
-            System.out.print("$" + Vendor.formatPrice(item.getPrice()) + "\t");
+            System.out.print("\t$" + Vendor.formatPrice(item.getPrice()));
         }
+        System.out.println();
     }
 
     public void viewQuantities(Map<VendingItem, Integer> cartItems){
-        System.out.println("\t");
         for(VendingItem item : cartItems.keySet()){
-            System.out.print("x" + cartItems.get(item) + "\t");
+            System.out.print("\tx" + cartItems.get(item));
         }
+        System.out.println();
+    }
+
+    public void viewNames(Map<VendingItem, Integer> cartItems){
+        for(VendingItem item : cartItems.keySet()){
+            System.out.print("\t" + item.getName());
+        }
+        System.out.println();
     }
 
 }
