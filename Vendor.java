@@ -57,6 +57,10 @@ public class Vendor {
         items[3][4] = new VendingItem(1, "🍩", "Donut", 1.15);
     }
 
+    public Cart getCart() {
+        return cart;
+    }
+
     public VendingItem getItemAt(int x, int y){
         return items[x][y];
     }
@@ -162,7 +166,7 @@ public class Vendor {
     public void addOrCheckout(){
         Scanner input = new Scanner(System.in);
         while(true){
-            System.out.println("Options: enter 'add d3' to add item d3 to cart (or any item), 'cart' to view cart, 'show' to display the vending machine. 'checkout' to buy items in cart & quit");
+            System.out.println("Options: enter 'add d3' to add item d3 to cart (or any item), 'cart' to view cart, 'remove <item>' (e.g. 'remove banana') to remove <item> from your cart,'show' to display the vending machine. 'checkout' to buy items in cart & quit");
             String response = input.nextLine().toLowerCase();
             //checks to see if add command is correct format
             if(response.matches("add\\s.*")){
@@ -213,7 +217,7 @@ public class Vendor {
             System.out.println("Removed 1 " + itemToRemove + " from cart.");
         }
         else{
-            System.out.println("Enter the item name as it appears in the cart");
+            System.out.println("Whoops! We couldn't find that item in your cart. Please enter the item name as it appears in the cart");
         }
     }
 

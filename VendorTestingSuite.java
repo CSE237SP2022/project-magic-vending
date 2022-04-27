@@ -64,6 +64,23 @@ public class VendorTestingSuite {
         assertTrue("input validation not working", testVendor.buyItem("d5"));
     }
 
+    @Test
+    public void testHandleRemove() {
+        VendingItem testItem = new VendingItem(2, "🥑", "avocado", 2.50);
+        for(int i = 0; i < 2; ++i) testVendor.addItem(testItem, 0, 0);
+        testVendor.handleRemove("remove avocado");
+        assertEquals(true, testVendor.getCart().getItems().keySet().contains(testItem));
+        assertEquals(true, testVendor.getCart().getItems().get(testItem) == 2);
+        testVendor.handleRemove("remove avcado");
+        testVendor.handleRemove("remve avocado");
+        testVendor.handleRemove("remove banana");
+        assertEquals(true, testVendor.getCart().getItems().get(testItem) == 2);
+        testVendor.handleRemove("remove avocado");
+        assertEquals(true, testVendor.getCart().getItems().get(testItem) == 1);
+        testVendor.handleRemove("remove avocado");
+        assertEquals(false, testVendor.getCart().getItems().keySet().contains(testItem));
+    }
+
     /*reassign system output to stdout after testing
     @AfterClass  annotation runs after all @Test methods have completed
     */
