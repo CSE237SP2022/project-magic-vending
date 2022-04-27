@@ -31,10 +31,13 @@ public class CartTestingSuite {
         testingCart.addItem(testItem);
         testingCart.removeItem(testItem);
         assertEquals(true, testingCart.getItems().containsKey(testItem));
+        for(int i = 0; i < 2; ++i) testingCart.removeItem(testItem);
+        assertEquals(false, testingCart.removeItem(testItem));
+        
     }
 
     @Test
-    public void testCalculateSubtotal(){
+    public void testCalculateSubtotal() {
         VendingItem testItemOne = new VendingItem(3, "🥑", "avocado", 2.50);
         VendingItem testItemTwo = new VendingItem(5, "🍏", "apple", 2.00); 
         VendingItem testItemThree = new VendingItem(2, "🍌", "banana", 0.75);
@@ -47,7 +50,7 @@ public class CartTestingSuite {
     }
 
     @Test
-    public void testSalesTax(){
+    public void testSalesTax() {
         //Testing with MO sales tax (4.23%)
         VendingItem testItemOne = new VendingItem(3, "🥑", "avocado", 2.50);
         VendingItem testItemTwo = new VendingItem(5, "🍏", "apple", 2.00); 
@@ -64,7 +67,7 @@ public class CartTestingSuite {
     }
 
     @Test
-    public void testViewCart(){
+    public void testViewCart() {
         VendingItem testItemOne = new VendingItem(3, "🥑", "avocado", 2.50);
         VendingItem testItemTwo = new VendingItem(5, "🍏", "apple", 2.00); 
         VendingItem testItemThree = new VendingItem(2, "🍌", "banana", 0.75);

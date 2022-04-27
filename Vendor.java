@@ -57,6 +57,10 @@ public class Vendor {
         items[3][4] = new VendingItem(1, "🍩", "Donut", 1.15);
     }
 
+    public Cart getCart() {
+        return cart;
+    }
+
     public VendingItem getItemAt(int x, int y){
         return items[x][y];
     }
@@ -213,7 +217,7 @@ public class Vendor {
             System.out.println("Removed 1 " + itemToRemove + " from cart.");
         }
         else{
-            System.out.println("Enter the item name as it appears in the cart");
+            System.out.println("Whoops! We couldn't find that item in your cart. Please enter the item name as it appears in the cart");
         }
     }
 
