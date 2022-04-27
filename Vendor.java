@@ -1,6 +1,4 @@
 import java.text.DecimalFormat;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Vendor { 
@@ -8,7 +6,6 @@ public class Vendor {
     private VendingItem items[][];
     private Cart cart;
     private double magicNumber;
-    
 
     public Vendor(int width, int height){
         items = new VendingItem[width][height];
@@ -31,7 +28,6 @@ public class Vendor {
             "and aim to get the after-tax total as close to this magic number as possible. But be careful, you won't be able to see the cart total" +
             " until the very end, so choose wisely!");
         System.out.println("Achieve a total within $0.20 of the magic number to win your items for free! Good luck 🙂\n");
-       
     }
 
     public void addItems(){
@@ -91,7 +87,6 @@ public class Vendor {
     public void displayVendor(){
         System.out.println("\t1 \t2 \t3 \t4 \t5");
         System.out.println("-------------------------------------------");
-        
         for(int i = 0; i<items.length; i++){
             printLine(i);
         }
@@ -113,8 +108,7 @@ public class Vendor {
     }
 
     /** 
-     * Creates randomly selected magic number
-     * @return magic number between 5-15
+     * @return randomly generated magic number between 5-15
     */
     public static double generateMagicNumber(){
         double number = (Math.random()*10)+5;
@@ -128,10 +122,9 @@ public class Vendor {
         
     }
 
-
     public void checkout(){
         Double total = cart.calculateSubtotal() * (1.0 + cart.getState().getTaxRate() / 100.0);
-        cart.viewCart();
+        cart.viewCart(true);
         System.out.println("Subtotal: $" + formatPrice(cart.calculateSubtotal()));
         System.out.println("Tax: " + cart.getState().getTaxRate() + "% = $" + formatPrice(total - cart.calculateSubtotal()) );
         System.out.println("Your total is: $"+ formatPrice(total) + " and your magic number was: $" + formatPrice(magicNumber));
@@ -176,7 +169,7 @@ public class Vendor {
                 handleRemove(response);
             }
             else if(response.equals("cart")){
-                cart.viewCart();
+                cart.viewCart(false);
             }
             else if(response.equals("checkout")){
                 checkout();
@@ -208,6 +201,9 @@ public class Vendor {
         }
     }
 
+    /**
+     * @param response passed item name as it appears in Cart.viewCart()
+     */
     public void handleRemove(String response){
         String itemToRemove = " ";
         if(response.split("\\s").length > 1){
@@ -238,6 +234,5 @@ public class Vendor {
         cart.addItem(boughtItem);
         return true;
     }
-
 
 }
