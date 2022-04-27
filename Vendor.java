@@ -166,7 +166,7 @@ public class Vendor {
     public void addOrCheckout(){
         Scanner input = new Scanner(System.in);
         while(true){
-            System.out.println("Options: enter 'add d3' to add item d3 to cart (or any item), 'cart' to view cart, 'remove <item>' (e.g. 'remove banana') to remove <item> from your cart,'show' to display the vending machine. 'checkout' to buy items in cart & quit");
+            System.out.println("Options: enter 'add d3' to add item d3 to cart (or any item), 'cart' to view cart, 'show' to display the vending machine. 'checkout' to buy items in cart & quit");
             String response = input.nextLine().toLowerCase();
             //checks to see if add command is correct format
             if(response.matches("add\\s.*")){
