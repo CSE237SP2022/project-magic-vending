@@ -3,8 +3,14 @@ by Charles Berghausen, Annabel Rice, Katherine Kim, Jackson Tidland for CSE237
 
 The magic vending machine randomly selects a magic price range in which the customer will get their items for free. However, your shopping time is limited, and you will only be blessed with free snacks if you finish your selection in time and reach an after-tax total within the magic range.
 
+Built in Java and used via the command line.
 
-Built in Java and used via the command line. Usage instructions will be written below as we develop functionality.
+### Usage
+
+1. clone this repo
+2. run $ ./PlayVendor.sh
+
+## Iteration 2
 * What user stories were completed this iteration?
     * Cart class that holds items, adds items, removes items, and displays its contents
     * addOrCheckout() loop that repeatedly prompts user for an input and prints out options
@@ -18,9 +24,13 @@ Built in Java and used via the command line. Usage instructions will be written 
 * Is there anything that you implemented but doesn't currently work?
      * No
 
-### Usage
-
-1. clone this repo
-2. run $ ./PlayVendor.sh
-
-
+## Iteration 3
+* What user stories were completed this iteration?
+   * A remove option to enable removing an item from the cart by name
+   * Randomly generated state tax rate
+   * Incorporating magic number into game and providing play instructions
+   * Calculating subtotal & tax, and calculating whether total is close enough to the magic number to award the items for free
+   * Improved viewCart()
+   * Decided not to use a time limit
+* Is there anything that you implemented but doesn't currently work?
+   * No
