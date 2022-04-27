@@ -88,7 +88,7 @@ public class Cart {
             viewEmojis(getItems());
             viewPrices(getItems());
             viewQuantities(getItems());
-            if(atCheckout){
+            if(!atCheckout){
                 System.out.println("You can enter 'remove <item name>' to remove that item from your cart (e.g. 'remove banana' to remove one banana from cart) \n");
             }
         }
